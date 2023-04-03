@@ -1,9 +1,9 @@
-package org.example
+package org.example.session
 
 import spock.lang.Specification
 
 
-class MainTest extends Specification {
+class SanityTest extends Specification {
 
 	def 'Should add two numbers correctly'() {
 		expect:
