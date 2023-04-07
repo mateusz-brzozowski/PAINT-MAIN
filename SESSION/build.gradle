@@ -27,7 +27,8 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-data-r2dbc:${springVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-web:${springVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-webflux:${springVersion}"
-	
+	implementation "org.springframework.boot:spring-boot-starter-validation:${springVersion}"
+
 	developmentOnly "org.springframework.boot:spring-boot-devtools:${springVersion}"
 
 	runtimeOnly "com.h2database:h2"
