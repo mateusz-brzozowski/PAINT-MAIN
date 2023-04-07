@@ -1,8 +1,10 @@
 package org.example.session.service.implementation;
 
+import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.session.entity.SessionEntity;
+import org.example.session.entity.WordEntity;
 import org.example.session.mapper.SessionMapper;
 import org.example.session.model.Session;
 import org.example.session.model.WordleResult;
@@ -25,18 +27,31 @@ public class WordleServiceImpl implements WordleService {
 
 	private final SessionMapper sessionMapper;
 
+	private final Random random;
+
 	@Override
 	public Mono<Session> initializeSession(int userId, int languageId, int wordLength) {
-		var word = wordRepository.countAllByLanguageId(languageId);
-		var session = SessionEntity.builder()
-				.userId(userId)
-				.wordLength(wordLength)
-				.build();
-		return null;
+		return getRandomWord(languageId, wordLength)
+				.map(word ->
+						SessionEntity.builder()
+								.userId(userId)
+								.languageId(languageId)
+								.wordLength(wordLength)
+								.wordNumber(word.getNumber())
+								.build()
+				)
+				.flatMap(sessionRepository::save)
+				.map(sessionMapper::entityToDto);
+	}
+
+	private Mono<WordEntity> getRandomWord(int languageId, int wordLength) {
+		return wordRepository.countAllByLanguageIdAndLength(languageId, wordLength)
+				.map(random::nextInt)
+				.flatMap(randomNumber -> wordRepository.findByLanguageIdAndLengthAndNumber(languageId, wordLength, randomNumber));
 	}
 
 	@Override
 	public Mono<WordleResult> handleGuess(int userId, int sessionId, String guess) {
-		return null;
+		return Mono.empty();
 	}
 }
