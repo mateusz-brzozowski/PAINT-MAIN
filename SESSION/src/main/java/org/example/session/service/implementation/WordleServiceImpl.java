@@ -1,4 +1,4 @@
-package org.example.session.service;
+package org.example.session.service.implementation;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,6 +6,7 @@ import org.example.session.entity.SessionEntity;
 import org.example.session.entity.WordEntity;
 import org.example.session.repository.SessionRepository;
 import org.example.session.repository.WordRepository;
+import org.example.session.service.WordleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
