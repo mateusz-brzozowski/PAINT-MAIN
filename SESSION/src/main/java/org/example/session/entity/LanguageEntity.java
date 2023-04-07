@@ -8,23 +8,17 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Builder
 @Value
-@Table("WORDS")
-public class WordEntity {
+@Table("LANGUAGES")
+public class LanguageEntity {
 
 	@Id
-	@Column("WORD_ID")
-	Long id;
-
 	@Column("LANGUAGE_ID")
-	Integer languageId;
+	Integer id;
 
-	@Column("WORD_LENGTH")
-	Integer length;
+	String code;
 
-	@Column("WORD_NUMBER")
-	Integer number;
+	String name;
 
-	@Column("WORD")
-	String word;
-
+	@Column("FLAG_URL")
+	String flagUrl;
 }

@@ -1,5 +1,6 @@
 package org.example.session.entity;
 
+import java.time.Instant;
 import lombok.Builder;
 import lombok.Value;
 import org.springframework.data.annotation.Id;
@@ -8,23 +9,21 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Builder
 @Value
-@Table("WORDS")
-public class WordEntity {
+@Table("GUESSES")
+public class GuessEntity {
 
 	@Id
-	@Column("WORD_ID")
+	@Column("GUESS_ID")
 	Long id;
 
-	@Column("LANGUAGE_ID")
-	Integer languageId;
+	@Column("SESSION_ID")
+	Integer sessionId;
 
-	@Column("WORD_LENGTH")
-	Integer length;
+	@Column("GUESS_NUMBER")
+	Integer guessNumber;
 
-	@Column("WORD_NUMBER")
-	Integer number;
+	String guess;
 
-	@Column("WORD")
-	String word;
-
+	@Column("CREATED_DATE")
+	Instant createdDate;
 }

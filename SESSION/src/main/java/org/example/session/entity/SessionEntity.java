@@ -14,8 +14,23 @@ import org.springframework.data.relational.core.mapping.Table;
 public class SessionEntity {
 
 	@Id
-	@Column("ID")
-	Integer id;
+	@Column("SESSION_ID")
+	Long id;
+
+	@Column("USER_ID")
+	Integer userId;
+
+	@Column("LANGUAGE_ID")
+	Integer languageId;
+
+	@Column("WORD_LENGTH")
+	Integer wordLength;
+
+	@Column("WORD_NUMBER")
+	Integer wordNumber;
+
+
+	// TODO: add multiple different modes
 
 	@CreatedDate
 	@Column("CREATED_DATE")
