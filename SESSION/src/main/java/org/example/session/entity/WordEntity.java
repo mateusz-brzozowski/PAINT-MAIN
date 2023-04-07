@@ -12,16 +12,19 @@ import org.springframework.data.relational.core.mapping.Table;
 public class WordEntity {
 
 	@Id
+	@Column("WORD_ID")
+	Long id;
+
 	@Column("LANGUAGE_ID")
 	Integer languageId;
 
-	@Id
+	@Column("WORD_LENGTH")
+	Integer length;
+
 	@Column("WORD_NUMBER")
 	Integer number;
 
 	@Column("WORD")
 	String word;
-
-	Integer length;
 
 }

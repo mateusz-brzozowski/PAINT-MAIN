@@ -15,15 +15,20 @@ public class SessionEntity {
 
 	@Id
 	@Column("SESSION_ID")
-	Integer id;
+	Long id;
 
 	@Column("USER_ID")
 	Integer userId;
 
-	@Column("WORD_ID")
-	Integer wordId;
+	@Column("LANGUAGE_ID")
+	Integer languageId;
 
+	@Column("WORD_LENGTH")
 	Integer wordLength;
+
+	@Column("WORD_NUMBER")
+	Integer wordNumber;
+
 
 	// TODO: add multiple different modes
 

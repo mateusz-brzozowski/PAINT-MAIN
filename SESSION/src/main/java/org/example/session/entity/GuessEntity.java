@@ -13,10 +13,12 @@ import org.springframework.data.relational.core.mapping.Table;
 public class GuessEntity {
 
 	@Id
+	@Column("GUESS_ID")
+	Long id;
+
 	@Column("SESSION_ID")
 	Integer sessionId;
 
-	@Id
 	@Column("GUESS_NUMBER")
 	Integer guessNumber;
 
