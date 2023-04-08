@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(config = MapstructConfig.class)
 public interface LanguageMapper {
 
+	@Mapping(target = "id")
 	@Mapping(target = "code")
 	@Mapping(target = "name")
 	@Mapping(target = "flagUrl")
