@@ -1,6 +1,5 @@
 package org.example.session.controller;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.example.session.model.Session;
 import org.example.session.model.WordleResult;
@@ -35,7 +34,7 @@ public class WordleController {
 	@PostMapping
 	public Mono<WordleResult> guess(
 			@RequestHeader Integer sessionId,
-			@NotBlank(message = "Guess can't be empty") @RequestBody String guess
+			@RequestBody String guess
 	) {
 		var userId = 1; // TODO: retrieve user id from provided token
 		return service.handleGuess(userId, sessionId, guess);
