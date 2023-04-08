@@ -47,6 +47,7 @@ public class WordleServiceImpl implements WordleService {
 	private Mono<WordEntity> getRandomWord(int languageId, int wordLength) {
 		return wordRepository.countAllByLanguageIdAndLength(languageId, wordLength)
 				.map(random::nextInt)
+				.map(it -> it + 1)
 				.flatMap(randomNumber -> wordRepository.findByLanguageIdAndLengthAndNumber(languageId, wordLength, randomNumber));
 	}
 

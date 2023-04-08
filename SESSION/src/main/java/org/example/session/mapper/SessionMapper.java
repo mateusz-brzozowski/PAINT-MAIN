@@ -12,5 +12,7 @@ public interface SessionMapper {
 	@Mapping(target = "id")
 	@Mapping(target = "userId")
 	@Mapping(target = "createdDate")
+	@Mapping(target = "wordLength")
+	@Mapping(target = "languageId")
 	Session entityToDto(SessionEntity entity);
 }

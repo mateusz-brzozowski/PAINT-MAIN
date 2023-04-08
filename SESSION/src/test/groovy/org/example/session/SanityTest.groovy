@@ -16,4 +16,9 @@ class SanityTest extends Specification {
 		2     | -2     || 0
 		-1    | 2      || 1
 	}
+
+	def 'Should start Spring application correctly'() {
+		expect:
+		SessionApplication.main()
+	}
 }
