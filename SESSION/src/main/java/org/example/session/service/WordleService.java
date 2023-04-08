@@ -8,5 +8,5 @@ public interface WordleService {
 
 	Mono<Session> initializeSession(int userId, int languageId, int wordLength);
 
-	Mono<WordleResult> handleGuess(int userId, int sessionId, String guess);
+	Mono<WordleResult> handleGuess(int userId, long sessionId, String guess);
 }
