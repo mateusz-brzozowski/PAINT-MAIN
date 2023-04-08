@@ -1,10 +1,17 @@
 package org.example.session.model;
 
 import java.util.List;
-import java.util.Map;
+import lombok.Builder;
+import lombok.Value;
 
+@Builder
+@Value
 public class WordleResult {
 
 	List<LetterResult> currentGuess;
-	Map<Character, LetterResult> keyboard;
+
+	public boolean hasWon() {
+		return currentGuess.stream()
+				.allMatch(it -> it == LetterResult.CORRECT_LETTER_CORRECT_PLACE);
+	}
 }

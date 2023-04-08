@@ -12,5 +12,6 @@ public class Session {
 	Integer userId;
 	Instant createdDate;
 
+	Integer languageId;
 	Integer wordLength;
 }

@@ -11,4 +11,6 @@ public interface WordRepository extends ReactiveCrudRepository<WordEntity, Long>
 	Mono<Integer> countAllByLanguageIdAndLength(int languageId, int length);
 
 	Mono<WordEntity> findByLanguageIdAndLengthAndNumber(int languageId, int length, int number);
+
+	Mono<WordEntity> findByLanguageIdAndLengthAndWord(int languageId, int length, String word);
 }

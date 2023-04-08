@@ -17,7 +17,7 @@ public class GuessEntity {
 	Long id;
 
 	@Column("SESSION_ID")
-	Integer sessionId;
+	Long sessionId;
 
 	@Column("GUESS_NUMBER")
 	Integer guessNumber;
