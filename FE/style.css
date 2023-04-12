@@ -23,7 +23,7 @@ body {
 .title-container {
     text-align: center;
     width: 510px;
-    border-bottom: solid 1px #3a3a3c;
+    border-bottom: solid 1px #3A3A3C;
 }
 
 .tile-container {
@@ -35,4 +35,22 @@ body {
     width: 510px;
     display: flex;
     flex-wrap: wrap;
+}
+
+.key-container button {
+    width: 43px;
+    height: 58px;
+    border-radius: 4px;
+    border: none;
+    background-color: #818384;
+    margin: 4px;
+}
+
+.key-container button:nth-child(11) {   /*  A       */
+    margin-left: 30px;
+}
+
+.key-container button:nth-child(20),    /*  ENTER   */
+.key-container button:nth-child(28) {   /*  ≪       */
+    width: 68px;
 }
