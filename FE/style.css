@@ -50,7 +50,10 @@ body {
     margin-left: 30px;
 }
 
-.key-container button:nth-child(20),    /*  ENTER   */
+.key-container button:nth-child(20) {   /*  ENTER   */
+    width: 69px;
+}
+
 .key-container button:nth-child(28) {   /*  ≪       */
     width: 68px;
 }
