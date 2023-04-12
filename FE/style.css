@@ -54,3 +54,22 @@ body {
 .key-container button:nth-child(28) {   /*  ≪       */
     width: 68px;
 }
+
+.tile-container div {
+    display: flex;
+}
+
+.tile-container .tile {
+    width: 62px;
+    height: 62px;
+    border: solid 2px #3A3A3C;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+}
+
+.message-container {
+    height: 30px;
+}
