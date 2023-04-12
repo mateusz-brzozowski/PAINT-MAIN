@@ -44,6 +44,15 @@ keys.forEach(key => {
     keyboard.append(buttonElement)
 })
 
+document.addEventListener("keydown", (event) => {
+    const keyName = event.key;
+    if (keys.includes(keyName.toUpperCase())) {
+        handleClick(keyName.toUpperCase())
+    } else if (keyName === "Backspace") {
+        deleteLetter()
+    }
+}, false);
+
 const handleClick = (key) => {
     console.log("Clicked", key + '!')
     if (key === '≪') {
