@@ -2,7 +2,19 @@ const tileDisplay = document.querySelector(".tile-container")
 const keyboard = document.querySelector(".key-container")
 const messageDisplay = document.querySelector(".message-container")
 
-const wordle = "QUART"
+let wordle
+
+const getWordle = () => {
+    fetch("https://random-word-api.vercel.app/api?words=1&length=5")
+        .then(response => response.json())
+        .then(json => {
+            console.log(json)
+            wordle = json[0].toUpperCase()
+        })
+        .catch(err => console.log(err))
+}
+
+getWordle()
 
 const keys = [
     'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
@@ -46,24 +58,28 @@ keys.forEach(key => {
 
 document.addEventListener("keydown", (event) => {
     const keyName = event.key;
-    if (keys.includes(keyName.toUpperCase())) {
-        handleClick(keyName.toUpperCase())
-    } else if (keyName === "Backspace") {
-        deleteLetter()
+    if (!isGameOver) {
+        if (keys.includes(keyName.toUpperCase())) {
+            handleClick(keyName.toUpperCase())
+        } else if (keyName === "Backspace") {
+            deleteLetter()
+        }
     }
 }, false);
 
 const handleClick = (key) => {
-    console.log("Clicked", key + '!')
-    if (key === '≪') {
-        deleteLetter()
-        return
+    if (!isGameOver) {
+        console.log("Clicked", key + '!')
+        if (key === '≪') {
+            deleteLetter()
+            return
+        }
+        if (key === "ENTER") {
+            checkRow()
+            return
+        }
+        addLetter(key)
     }
-    if (key === "ENTER") {
-        checkRow()
-        return
-    }
-    addLetter(key)
 }
 
 const addLetter = (letter) => {
