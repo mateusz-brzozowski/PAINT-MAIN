@@ -36,6 +36,14 @@ guessRows.forEach((guessRow, guessRowIndex) => {
     tileDisplay.append(rowElement)
 })
 
+keys.forEach(key => {
+    const buttonElement = document.createElement("button")
+    buttonElement.textContent = key
+    buttonElement.setAttribute("id", key)
+    buttonElement.addEventListener("click", () => handleClick(key))
+    keyboard.append(buttonElement)
+})
+
 const handleClick = (key) => {
     console.log("Clicked", key + '!')
     if (key === '≪') {
@@ -76,6 +84,7 @@ const checkRow = () => {
 
     if (currentTile > 4) {
         console.log("My guess is", guess, "and the wordle is", wordle + '.')
+        flipTile()
         if (guess == wordle) {
             showMessage("You win!")
             isGameOver = true
@@ -101,10 +110,28 @@ const showMessage = (message) => {
     setTimeout(() => messageDisplay.removeChild(messageElement), 2000)
 }
 
-keys.forEach(key => {
-    const buttonElement = document.createElement("button")
-    buttonElement.textContent = key
-    buttonElement.setAttribute("id", key)
-    buttonElement.addEventListener("click", () => handleClick(key))
-    keyboard.append(buttonElement)
-})
+const addColorToKey = (keyLetter, color) => {
+    const key = document.getElementById(keyLetter)
+    key.classList.add(color)
+}
+
+const flipTile = () => {
+    const rowTiles = document.querySelector("#guessRow-" + currentRow).childNodes
+    rowTiles.forEach((tile, index) => {
+        const dataLetter = tile.getAttribute("data")
+
+        setTimeout(() => {
+            tile.classList.add("flip")
+            if (dataLetter == wordle[index]) {
+                tile.classList.add("green-overlay")
+                addColorToKey(dataLetter, "green-overlay")
+            } else if (wordle.includes(dataLetter)) {
+                tile.classList.add("yellow-overlay")
+                addColorToKey(dataLetter, "yellow-overlay")
+            } else {
+                tile.classList.add("grey-overlay")
+                addColorToKey(dataLetter, "grey-overlay")
+            }
+        }, 500 * index)
+    })
+}
