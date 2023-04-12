@@ -1,5 +1,6 @@
 const tileDisplay = document.querySelector(".tile-container")
 const keyboard = document.querySelector(".key-container")
+const messageDisplay = document.querySelector(".message-container")
 
 const wordle = "QUART"
 
@@ -21,6 +22,8 @@ const guessRows = [
 let currentRow = 0
 let currentTile = 0
 
+let isGameOver = false
+
 guessRows.forEach((guessRow, guessRowIndex) => {
     const rowElement = document.createElement("div")
     rowElement.setAttribute("id", "guessRow-" + guessRowIndex)
@@ -36,12 +39,11 @@ guessRows.forEach((guessRow, guessRowIndex) => {
 const handleClick = (key) => {
     console.log("Clicked", key + '!')
     if (key === '≪') {
-        // console.log("Delete letter...")
         deleteLetter()
         return
     }
     if (key === "ENTER") {
-        console.log("Check row...")
+        checkRow()
         return
     }
     addLetter(key)
@@ -67,6 +69,36 @@ const deleteLetter = () => {
         guessRows[currentRow][currentTile] = ''
         console.log("guessRows", guessRows)
     }
+}
+
+const checkRow = () => {
+    const guess = guessRows[currentRow].join('')
+
+    if (currentTile > 4) {
+        console.log("My guess is", guess, "and the wordle is", wordle + '.')
+        if (guess == wordle) {
+            showMessage("You win!")
+            isGameOver = true
+            return
+        } else {
+            if (currentRow >= 5) {
+                showMessage("You lose!")
+                isGameOver = true
+                return
+            } else {
+                showMessage("Nope!")
+                currentRow++
+                currentTile = 0
+            }
+        }
+    }
+}
+
+const showMessage = (message) => {
+    const messageElement = document.createElement('p')
+    messageElement.textContent = message
+    messageDisplay.append(messageElement)
+    setTimeout(() => messageDisplay.removeChild(messageElement), 2000)
 }
 
 keys.forEach(key => {
