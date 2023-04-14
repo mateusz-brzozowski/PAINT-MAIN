@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+    session:
+        container_name: session
+        build:
+            context: SESSION
+            dockerfile: docker/Dockerfile
+        volumes:
+            - gradlewrapper:/root/.gradle/wrapper:rw
+        ports:
+            - 7777:8080
+
+volumes:
+    gradlewrapper:
