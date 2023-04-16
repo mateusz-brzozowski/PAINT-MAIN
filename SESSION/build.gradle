@@ -4,6 +4,7 @@ plugins {
 	id 'groovy'
 	id 'org.springframework.boot' version '2.7.4'
 	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+	id 'org.springdoc.openapi-gradle-plugin' version '1.6.0'
 }
 
 group = 'org.example'
@@ -23,6 +24,7 @@ dependencies {
 
 	implementation 'org.apache.commons:commons-lang3:3.0'
 
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.14'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	runtimeOnly 'com.h2database:h2'
