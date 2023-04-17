@@ -12,6 +12,7 @@ import org.example.session.entity.SessionEntity;
 import org.example.session.entity.WordEntity;
 import org.example.session.exception.GuessLimitExceeded;
 import org.example.session.exception.IncorrectWordLength;
+import org.example.session.exception.NoMatchingWordsFound;
 import org.example.session.exception.NonExistentWord;
 import org.example.session.exception.SessionDoesNotExist;
 import org.example.session.exception.UsersNotMatching;
@@ -62,9 +63,11 @@ public class WordleServiceImpl implements WordleService {
 
 	private Mono<WordEntity> getRandomWord(int languageId, int wordLength) {
 		return wordRepository.countAllByLanguageIdAndLength(languageId, wordLength)
+				.filter(it -> it > 0)
 				.map(random::nextInt)
 				.map(it -> it + 1)
-				.flatMap(randomNumber -> wordRepository.findByLanguageIdAndLengthAndNumber(languageId, wordLength, randomNumber));
+				.flatMap(randomNumber -> wordRepository.findByLanguageIdAndLengthAndNumber(languageId, wordLength, randomNumber))
+				.switchIfEmpty(Mono.error(NoMatchingWordsFound::new));
 	}
 
 	@Override
