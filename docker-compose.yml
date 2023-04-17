@@ -9,6 +9,12 @@ services:
             - gradlewrapper:/root/.gradle/wrapper:rw
         ports:
             - 7777:8080
-
+    frontend:
+        container_name: frontend
+        build:
+            context: FE
+            dockerfile: Dockerfile
+        ports:
+            - 80:80
 volumes:
     gradlewrapper:
