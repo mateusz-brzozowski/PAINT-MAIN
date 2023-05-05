@@ -1,0 +1,9 @@
+FROM postgres:latest
+
+COPY scripts/DATABASE_CREATE.sql /docker-entrypoint-initdb.d/01_db_create.sql
+COPY data/languages_inserts.sql /docker-entrypoint-initdb.d/02_language_data.sql
+COPY data/words_inserts.sql /docker-entrypoint-initdb.d/03_words_data.sql
+
+ENV POSTGRES_USER postgres
+ENV POSTGRES_PASSWORD admin
+ENV POSTGRES_DB wordledb

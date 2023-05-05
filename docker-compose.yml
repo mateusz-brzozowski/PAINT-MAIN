@@ -16,5 +16,12 @@ services:
             dockerfile: Dockerfile
         ports:
             - 80:80
+    database:
+        container_name: database
+        build:
+            context: DATABASE
+            dockerfile: dockerfile
+        ports:
+            - 5432:5432
 volumes:
     gradlewrapper:
