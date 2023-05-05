@@ -1,5 +1,6 @@
 package org.example.session.service.implementation;
 
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -55,6 +56,7 @@ public class WordleServiceImpl implements WordleService {
 								.languageId(languageId)
 								.wordLength(wordLength)
 								.wordNumber(word.getNumber())
+								.createdDate(Instant.now())
 								.build()
 				)
 				.flatMap(sessionRepository::save)
@@ -122,6 +124,7 @@ public class WordleServiceImpl implements WordleService {
 						.sessionId(session.getId())
 						.guess(guess)
 						.guessNumber(number)
+						.createdDate(Instant.now())
 						.build())
 				.flatMap(guessRepository::save);
 	}
