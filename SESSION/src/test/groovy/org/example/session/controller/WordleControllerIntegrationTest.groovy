@@ -8,8 +8,6 @@ import org.example.session.model.WordleResult
 import org.example.session.repository.SessionRepository
 import org.example.session.repository.WordRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.jdbc.EmbeddedDatabaseConnection
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.servlet.MockMvc
@@ -18,7 +16,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import spock.lang.Specification
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @AutoConfigureMockMvc
 class WordleControllerIntegrationTest extends Specification {
 
@@ -32,8 +29,8 @@ class WordleControllerIntegrationTest extends Specification {
 	SessionRepository sessionRepository
 
 	def 'cleanup'() {
-		wordRepository.deleteAll()
-		sessionRepository.deleteAll()
+		wordRepository.deleteAll().block()
+		sessionRepository.deleteAll().block()
 	}
 
 	def insertWord(String word) {
