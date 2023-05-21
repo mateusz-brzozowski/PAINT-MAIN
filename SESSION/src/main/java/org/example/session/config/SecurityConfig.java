@@ -75,6 +75,8 @@ public class SecurityConfig {
 		var config = new CorsConfiguration();
 		config.setAllowCredentials(true);
 		config.addAllowedOrigin("http://localhost");
+		config.addAllowedOrigin("http://localhost:7777");
+		config.addAllowedOrigin("http://localhost:8080");
 		config.addAllowedMethod("*");
 		config.addAllowedHeader("*");
 
