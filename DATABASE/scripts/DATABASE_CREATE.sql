@@ -31,8 +31,25 @@ create table users
         primary key
 );
 
+-- Funky Wunky way to start the sequence from 2
+-- Create a new temporary sequence starting from 2
+CREATE SEQUENCE temp_user_id_seq START 2;
+
+-- Update user_id column with values from the temporary sequence
+UPDATE users
+SET user_id = nextval('temp_user_id_seq');
+
+-- Alter user_id column to use the temporary sequence as its default value
+ALTER TABLE users
+ALTER COLUMN user_id SET DEFAULT nextval('temp_user_id_seq');
+
+--  Drop the existing sequence and rename the temporary sequence
+DROP SEQUENCE users_user_id_seq;
+ALTER SEQUENCE temp_user_id_seq RENAME TO users_user_id_seq;
+
 alter table users
     owner to postgres;
+
 
 create table sessions
 (
