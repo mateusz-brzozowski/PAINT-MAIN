@@ -1,6 +1,7 @@
 package org.example.authorization.model;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -12,8 +13,10 @@ public class RegisterRequest {
     String login;
 
     @NotBlank(message = "Password must be provided")
+    @Size(min = 8, max = 20)
     String password;
 
     @NotBlank(message = "Password must be provided")
+    @Size(min = 8, max = 20)
     String confirmPassword;
 }

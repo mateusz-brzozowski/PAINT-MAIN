@@ -3,6 +3,7 @@ package org.example.authorization.service.implementation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.authorization.entity.UserEntity;
+import org.example.authorization.exception.IncorrectLogin;
 import org.example.authorization.model.LoginRequest;
 import org.example.authorization.model.RegisterRequest;
 import org.example.authorization.model.User;
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserService {
                                     .login(userEntity.getLogin())
                                     .build();
                         }
-                );
+                ).switchIfEmpty(Mono.error(IncorrectLogin::new));
     }
 
     @Override
