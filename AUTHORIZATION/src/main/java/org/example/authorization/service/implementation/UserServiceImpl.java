@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.authorization.entity.UserEntity;
 import org.example.authorization.exception.IncorrectLogin;
+import org.example.authorization.exception.PasswordsDoNotMatch;
+import org.example.authorization.exception.WeakPassword;
 import org.example.authorization.model.LoginRequest;
 import org.example.authorization.model.RegisterRequest;
 import org.example.authorization.model.User;
@@ -53,8 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Mono<Boolean> register(RegisterRequest request) {
-        if (!validatePassword(request.getPassword(), request.getConfirmPassword()))
-            return Mono.just(false);
+        validatePassword(request.getPassword(), request.getConfirmPassword());
         String salt = generateSalt();
         return userRepository.save(
                 UserEntity
@@ -66,9 +67,9 @@ public class UserServiceImpl implements UserService {
         ).map(Objects::nonNull);
     }
 
-    private boolean validatePassword(String password, String confirmPassword) {
+    private void validatePassword(String password, String confirmPassword) {
         if (!password.equals(confirmPassword))
-            return false;
+            throw new PasswordsDoNotMatch();
         boolean hasUpperCase = false;
         boolean hasLowerCase = false;
         boolean hasDigit = false;
@@ -83,7 +84,8 @@ public class UserServiceImpl implements UserService {
             if (hasUpperCase && hasLowerCase && hasDigit)
                 break;
         }
-        return hasUpperCase && hasLowerCase && hasDigit;
+        if (!hasUpperCase || !hasLowerCase || !hasDigit)
+            throw new WeakPassword();
     }
 
     private String generateSalt() {
