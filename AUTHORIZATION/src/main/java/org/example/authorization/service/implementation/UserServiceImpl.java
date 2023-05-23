@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Mono<Boolean> register(RegisterRequest request) {
-        if (!request.getPassword().equals(request.getConfirmPassword()))
+        if (!validatePassword(request.getPassword(), request.getConfirmPassword()))
             return Mono.just(false);
         String salt = generateSalt();
         return userRepository.save(
@@ -64,6 +64,26 @@ public class UserServiceImpl implements UserService {
                         .salt(salt)
                         .build()
         ).map(Objects::nonNull);
+    }
+
+    private boolean validatePassword(String password, String confirmPassword) {
+        if (!password.equals(confirmPassword))
+            return false;
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
+        boolean hasDigit = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c))
+                hasUpperCase = true;
+            else if (Character.isLowerCase(c))
+                hasLowerCase = true;
+            else if (Character.isDigit(c))
+                hasDigit = true;
+            if (hasUpperCase && hasLowerCase && hasDigit)
+                break;
+        }
+        return hasUpperCase && hasLowerCase && hasDigit;
     }
 
     private String generateSalt() {
