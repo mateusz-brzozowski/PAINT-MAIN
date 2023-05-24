@@ -30,8 +30,7 @@ create table users
     user_id serial not null
         primary key,
     login varchar(50) not null,
-    password_hash varchar(64) not null,
-    salt varchar(64) not null
+    password_hash varchar(64) not null
 );
 
 -- Funky Wunky way to start the sequence from 2

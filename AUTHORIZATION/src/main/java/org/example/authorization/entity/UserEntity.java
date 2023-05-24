@@ -19,7 +19,4 @@ public class UserEntity {
 
     @Column("PASSWORD_HASH")
     String passwordHash;
-
-    @Column("SALT")
-    String salt;
 }

@@ -1,5 +1,6 @@
 package org.example.authorization.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.authorization.model.RegisterRequest;
 import org.example.authorization.service.UserService;
@@ -17,7 +18,7 @@ public class RegisterController {
     private final UserService service;
 
     @PostMapping
-    public Mono<Boolean> register(@RequestBody RegisterRequest registerRequest) {
+    public Mono<Boolean> register(@Valid @RequestBody RegisterRequest registerRequest) {
         return service.register(registerRequest);
     }
 }

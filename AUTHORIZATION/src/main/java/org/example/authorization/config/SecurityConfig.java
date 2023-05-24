@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusReactiveJwtDecoder;
@@ -38,6 +40,9 @@ public class SecurityConfig {
     @Value("${springdoc.api-docs.path}")
     private String restApiDocPath;
 
+    @Value("${springdoc.swagger-ui.path}")
+    private String swaggerPath;
+
     @Value("${frontend.url}")
     private String frontendUrl;
 
@@ -62,6 +67,8 @@ public class SecurityConfig {
                 .pathMatchers("/register").permitAll()
                 .pathMatchers(String.format("%s**", restApiDocPath)).permitAll()
                 .pathMatchers(String.format("%s/**", restApiDocPath)).permitAll()
+                .pathMatchers(swaggerPath).permitAll()
+                .pathMatchers("/webjars/swagger-ui/**").permitAll()
                 .anyExchange().authenticated()
                 .and()
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
@@ -99,6 +106,11 @@ public class SecurityConfig {
     @Bean
     public JwtReactiveAuthenticationManager jwtAuthenticationManager(@Autowired ReactiveJwtDecoder jwtDecoder) {
         return new JwtReactiveAuthenticationManager(jwtDecoder);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
 
