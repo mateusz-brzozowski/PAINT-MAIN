@@ -28,8 +28,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Mono<User> login(LoginRequest request) {
         return userRepository.findByLogin(request.getLogin())
-                .mapNotNull(it -> tryLogin(it, request)
-                ).switchIfEmpty(Mono.error(IncorrectLogin::new));
+                .mapNotNull(it -> tryLogin(it, request));
     }
 
     @Override
@@ -47,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
     private User tryLogin(UserEntity userEntity, LoginRequest request) {
         if (!passwordEncoder.matches(request.getPassword(), userEntity.getPasswordHash()))
-            return null;
+            throw new IncorrectLogin();
         return User.builder()
                 .id(userEntity.getUserId())
                 .login(userEntity.getLogin())
