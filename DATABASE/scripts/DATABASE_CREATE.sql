@@ -84,3 +84,21 @@ create table guesses
 alter table guesses
     owner to postgres;
 
+-- The result of a single game
+    create table results
+(
+    result_id     serial
+        primary key,
+    user_id   integer      not null
+        constraint results_user_fk
+            references sessions,
+    result      boolean    not null,
+    created_date timestamp not null,
+    guess_number integer
+
+);
+
+alter table results
+    owner to postgres;
+
+
